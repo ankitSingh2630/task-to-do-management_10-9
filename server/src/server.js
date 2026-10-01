@@ -15,8 +15,8 @@ dotenv.config({ path: path.resolve(__dirname, '../.env') });
 dotenv.config();
 
 // Default fallbacks if env vars are missing
-process.env.MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/task_management_db';
-process.env.JWT_SECRET = process.env.JWT_SECRET || 'super_secret_jwt_key_technova_task_manager_2026';
+process.env.MONGODB_URI = process.env.MONGODB_URI || '';
+process.env.JWT_SECRET = process.env.JWT_SECRET || '';
 
 // Connect to MongoDB
 connectDB();
