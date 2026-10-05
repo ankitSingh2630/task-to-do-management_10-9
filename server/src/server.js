@@ -6,12 +6,6 @@ const authRoutes = require('./routes/authRoutes');
 const taskRoutes = require('./routes/taskRoutes');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
-const path = require('path');
-
-// Load environment variables from server directory
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
-
-// Also load from current working directory if available
 dotenv.config();
 
 // Default fallbacks if env vars are missing
@@ -22,12 +16,11 @@ process.env.JWT_SECRET = process.env.JWT_SECRET || '';
 connectDB();
 
 const cookieParser = require('cookie-parser');
-
 const app = express();
 
 // Middleware
 app.use(cors({
-  origin: (origin, callback) => callback(null, true), // Dynamic origin allowing credentials
+  origin:"http://localhost:5173",
   credentials: true
 }));
 app.use(cookieParser());
@@ -53,7 +46,7 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`[Server] Running in ${process.env.NODE_ENV || 'development'} mode on port :  ${PORT}`);
+  console.log(`[Server] Running on port :  ${PORT}`);
 });
 
 module.exports = app;
