@@ -26,7 +26,7 @@ const protect = async (req, res, next) => {
   try {
     const decoded = jwt.verify(
       token,
-      process.env.JWT_SECRET || 'super_secret_jwt_key_technova_task_manager_2026'
+      process.env.JWT_SECRET 
     );
 
     const user = await User.findById(decoded.id).select('-password');

@@ -6,7 +6,7 @@ const User = require('../models/User');
 const generateToken = (userId) => {
   return jwt.sign(
     { id: userId },
-    process.env.JWT_SECRET || 'super_secret_jwt_key_technova_task_manager_2026',
+    process.env.JWT_SECRET ,
     {
       expiresIn: process.env.JWT_EXPIRES_IN || '7d'
     }
@@ -17,8 +17,10 @@ const generateToken = (userId) => {
 const getCookieOptions = () => ({
   httpOnly: true,
   expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
-  sameSite: 'lax',
-  secure: process.env.NODE_ENV === 'production'
+sameSite:
+    process.env.NODE_ENV === 'production'
+      ? 'none'
+      : 'lax'
 });
 
 // @desc    Register a new user
@@ -67,7 +69,7 @@ const register = async (req, res, next) => {
     res.status(201).json({
       success: true,
       message: 'Registration successful!',
-      token,
+     
       user: {
         id: user._id,
         name: user.name,
@@ -120,7 +122,6 @@ const login = async (req, res, next) => {
     res.status(200).json({
       success: true,
       message: 'Login successful!',
-      token,
       user: {
         id: user._id,
         name: user.name,
